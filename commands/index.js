@@ -8,7 +8,7 @@ fs
   .filter(file => file.indexOf('.') !== 0 && file !== 'index.js')
   .forEach(file => {
     let commandName = file.replace('.js', '')
-    commands[`\\${commandName}`] = require(`./${file}`)
+    commands[commandName] = require(`./${file}`)
   })
 
 module.exports = commands
