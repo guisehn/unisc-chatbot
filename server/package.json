@@ -1,5 +1,5 @@
 {
-  "name": "sockets-chatbot",
+  "name": "sockets-chatbot-server",
   "version": "0.0.1",
   "license": "MIT",
   "dependencies": {
