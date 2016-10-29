@@ -3,10 +3,14 @@
 const net = require('net')
 const client = new net.Socket()
 const stdin = process.openStdin()
+const argument = (process.argv[2] || '').split(':')
 
-console.log('Conectando...')
+let server = argument[0] ? argument[0] : '0.0.0.0'
+let port = argument[1] ? argument[1] : 1337
 
-client.connect(1337, '0.0.0.0', () => {
+console.log(`Conectando em ${server}:${port}`)
+
+client.connect(port, server, () => {
   let waiting = false
 
   console.log('Conexão aberta!')
@@ -16,11 +20,6 @@ client.connect(1337, '0.0.0.0', () => {
     console.log(`\nServidor:\n${data}`)
     console.log('\nDigite o comando: ')
     waiting = false
-  })
-
-  client.on('close', () => {
-    console.log('\nConexão fechada')
-    process.exit()
   })
 
   stdin.addListener('data', data => {
@@ -36,4 +35,13 @@ client.connect(1337, '0.0.0.0', () => {
       client.write(message)
     }
   })
+})
+
+client.on('close', () => {
+  console.log('Conexão fechada')
+  process.exit()
+})
+
+client.on('error', err => {
+  console.log(`Erro na conexão (${err.message})`)
 })
