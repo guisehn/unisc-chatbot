@@ -20,6 +20,6 @@ module.exports = () => {
     })
     .catch(err => {
       console.log(err)
-      'Error querying the New York Times server'
+      return 'Error querying the New York Times server'
     })
 }
