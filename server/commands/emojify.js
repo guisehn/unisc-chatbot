@@ -3,7 +3,7 @@
 const Promise = require('bluebird')
 const emoji = require('node-emoji')
 
-module.exports = function (text) {
+module.exports = (text) => {
   let value = emoji.emojify(text)
   return Promise.resolve(value)
 }
