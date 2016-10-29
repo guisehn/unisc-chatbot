@@ -34,9 +34,9 @@ function handleCommand(socket, address, message) {
   let command = commands[commandName]
 
   if (command) {
-    let args = parts.splice(1)
+    let argument = parts.splice(1).join(' ')
 
-    command.apply(null, args).then(response => {
+    command(argument).then(response => {
       socket.write(response, () => logReturnMessage(message, address))
     })
   } else {
