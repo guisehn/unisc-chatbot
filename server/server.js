@@ -1,5 +1,7 @@
 'use strict'
 
+require('dotenv').config({ silent: true })
+
 const net = require('net')
 const commands = require('./commands')
 
@@ -28,7 +30,7 @@ server.listen(1337, '0.0.0.0', () => {
   console.log(`Servidor iniciado em ${address.address}:${address.port}`)
 })
 
-function handleCommand(socket, address, message) {
+function handleCommand (socket, address, message) {
   let parts = message.split(' ')
   let commandName = parts[0].replace('\\', '')
   let command = commands[commandName]
@@ -45,6 +47,6 @@ function handleCommand(socket, address, message) {
   }
 }
 
-function logReturnMessage(message, address) {
+function logReturnMessage (message, address) {
   console.log(`Servidor enviou retorno de "${message}" para ${address}`)
 }
