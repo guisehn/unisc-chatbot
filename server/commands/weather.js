@@ -27,7 +27,7 @@ module.exports = (location) => {
         lines.push(`${item.dt_txt}` +
           `\tmin: ${item.main.temp_min} ºC` +
           `\tmax: ${item.main.temp_max} ºC` +
-          `\t${item.weather[0].description}`)
+          `\t\t${item.weather[0].description}`)
       })
 
       return lines.join('\n')
