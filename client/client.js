@@ -5,12 +5,12 @@ const client = new net.Socket()
 const stdin = process.openStdin()
 
 const argument = (process.argv[2] || '').split(':')
-const server = argument[0] ? argument[0] : '0.0.0.0'
+const host = argument[0] ? argument[0] : '0.0.0.0'
 const port = argument[1] ? argument[1] : 1337
 
-console.log(`Connecting to ${server}:${port}`)
+console.log(`Connecting to ${host}:${port}`)
 
-client.connect(port, server, () => {
+client.connect(port, host, () => {
   let waiting = false
 
   console.log('Connection open!')

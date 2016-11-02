@@ -5,6 +5,10 @@ require('dotenv').config({ silent: true })
 const net = require('net')
 const commands = require('./commands')
 
+const argument = (process.argv[2] || '').split(':')
+const host = argument[0] ? argument[0] : '0.0.0.0'
+const port = argument[1] ? argument[1] : 1337
+
 // Sends a message for a socket adding STX and ETX control characters
 function send (socket, message, callback) {
   return socket.write('\x02' + message + '\x03', callback)
@@ -53,7 +57,7 @@ const server = net.createServer(socket => {
   socket.on('close', () => console.log(`Connection closed with ${address}, on ${new Date()}`))
 })
 
-server.listen(1337, '0.0.0.0', () => {
+server.listen(port, host, () => {
   let address = server.address()
   console.log(`Server running at ${address.address}:${address.port}`)
 })
