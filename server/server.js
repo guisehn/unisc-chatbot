@@ -23,25 +23,25 @@ function handleCommand (socket, address, message) {
       send(socket, response, () => logReturnMessage(message, address))
     })
   } else {
-    send(socket, 'Comando não encontrado', () =>
-      console.log(`Servidor não encontrou comando ${commandName} solicitado por ${address}`))
+    send(socket, 'Command not found', () =>
+      console.log(`Server could not found the command ${commandName} sent by ${address}`))
   }
 }
 
 // Logs internally that a response has been sent to an address
 function logReturnMessage (message, address) {
-  console.log(`Servidor enviou retorno de "${message}" para ${address}`)
+  console.log(`Server sent response for "${message}" to ${address}`)
 }
 
 const server = net.createServer(socket => {
   let address = `${socket.remoteAddress}:${socket.remotePort}`
 
-  console.log(`Nova conexão estabelecida com ${address}, em ${new Date()}`)
+  console.log(`New connection established with ${address}, on ${new Date()}`)
 
   socket.on('data', data => {
     let message = data.toString()
 
-    console.log(`Cliente ${address} solicitou: ${message}`)
+    console.log(`Client ${address} sent: ${message}`)
 
     if (message.startsWith('\\')) {
       handleCommand(socket, address, message)
@@ -50,10 +50,10 @@ const server = net.createServer(socket => {
     }
   })
 
-  socket.on('close', () => console.log(`Conexão encerrada com ${address}, em ${new Date()}`))
+  socket.on('close', () => console.log(`Connection closed with ${address}, on ${new Date()}`))
 })
 
 server.listen(1337, '0.0.0.0', () => {
   let address = server.address()
-  console.log(`Servidor iniciado em ${address.address}:${address.port}`)
+  console.log(`Server running at ${address.address}:${address.port}`)
 })
